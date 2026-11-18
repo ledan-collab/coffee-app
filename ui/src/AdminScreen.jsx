@@ -17,7 +17,6 @@ const orderStatusLabel = {
 const orderActionLabel = {
   received: '제조 시작',
   making: '제조 완료',
-  done: '제조 완료',
 }
 
 function AdminScreen({ orders, stocks, onShowOrder, onChangeStock, onAdvanceOrder }) {
@@ -80,8 +79,14 @@ function AdminScreen({ orders, stocks, onShowOrder, onChangeStock, onAdvanceOrde
         </ul>
       </section>
 
-      <section className="panel admin-section order-section" aria-label="주문현황">
+      <section
+        className={`panel admin-section order-section${orders.length === 0 ? ' is-empty' : ''}`}
+        aria-label="주문현황"
+      >
         <h2>주문현황</h2>
+        {orders.length === 0 ? (
+          <p className="order-empty">접수된 주문이 없습니다.</p>
+        ) : (
         <ul className="order-list">
           {orders.map((order) => (
             <li key={order.id} className="order-row">
@@ -91,17 +96,19 @@ function AdminScreen({ orders, stocks, onShowOrder, onChangeStock, onAdvanceOrde
               </span>
               <span className="order-price">{formatPrice(order.totalPrice)}</span>
               <span className="order-state">{orderStatusLabel[order.status]}</span>
-              <button
-                type="button"
-                className="order-button"
-                onClick={() => onAdvanceOrder(order.id)}
-                disabled={order.status === 'done'}
-              >
-                {orderActionLabel[order.status]}
-              </button>
+              {order.status === 'done' ? null : (
+                <button
+                  type="button"
+                  className="order-button"
+                  onClick={() => onAdvanceOrder(order.id)}
+                >
+                  {orderActionLabel[order.status]}
+                </button>
+              )}
             </li>
           ))}
         </ul>
+        )}
       </section>
     </div>
   )
