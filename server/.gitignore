@@ -1,0 +1,47 @@
+# 의존성
+node_modules/
+
+# 환경 변수와 비밀번호
+.env
+.env.*
+!.env.example
+
+# 로그
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# 실행 중에 생기는 파일
+*.pid
+*.seed
+*.pid.lock
+
+# 테스트와 빌드 결과
+coverage
+.nyc_output
+dist
+build
+
+# 로컬 설정
+*.local
+.npm
+.eslintcache
+.node_repl_history
+
+# 운영체제
+.DS_Store
+Thumbs.db
+
+# 에디터
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
