@@ -1,4 +1,3 @@
-import { menus } from './menus.js'
 import { formatOrderTime, formatPrice, stockStatus } from './format.js'
 
 const dashboardItems = [
@@ -19,7 +18,7 @@ const orderActionLabel = {
   making: '제조 완료',
 }
 
-function AdminScreen({ orders, stocks, onShowOrder, onChangeStock, onAdvanceOrder }) {
+function AdminScreen({ menus, orders, loadError, onShowOrder, onChangeStock, onAdvanceOrder }) {
   return (
     <div className="app">
       <header className="panel header">
@@ -28,6 +27,12 @@ function AdminScreen({ orders, stocks, onShowOrder, onChangeStock, onAdvanceOrde
           주문하기
         </button>
       </header>
+
+      {loadError ? (
+        <p className="order-notice order-notice-warning" role="status">
+          {loadError}
+        </p>
+      ) : null}
 
       <section className="panel admin-section" aria-label="대시보드">
         <h2>대시보드</h2>
@@ -51,7 +56,7 @@ function AdminScreen({ orders, stocks, onShowOrder, onChangeStock, onAdvanceOrde
         <h2>재고</h2>
         <ul className="stock-list">
           {menus.map((menu) => {
-            const count = stocks[menu.id]
+            const count = menu.stock
             const status = stockStatus(count)
             return (
               <li key={menu.id} className="stock-card">
