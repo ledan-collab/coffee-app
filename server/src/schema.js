@@ -5,16 +5,19 @@ const menus = [
     name: '아메리카노(ICE)',
     description: '차갑고 깔끔한 에스프레소',
     price: 2500,
+    imageUrl: '/아메리카노.webp',
   },
   {
     name: '아메리카노(HOT)',
     description: '따뜻하고 진한 에스프레소',
     price: 2500,
+    imageUrl: '/아메리카노HOT.webp',
   },
   {
     name: '말차라떼(ICE)',
     description: '우유를 더한 달콤한 아이스 말차',
     price: 4500,
+    imageUrl: '/말차라떼.webp',
   },
 ]
 
@@ -77,9 +80,9 @@ export async function initDatabase() {
   for (const menu of menus) {
     const inserted = await pool.query(
       `INSERT INTO menus (name, description, price, image_url, stock)
-       VALUES ($1, $2, $3, NULL, 10)
+       VALUES ($1, $2, $3, $4, 10)
        RETURNING id`,
-      [menu.name, menu.description, menu.price],
+      [menu.name, menu.description, menu.price, menu.imageUrl],
     )
     for (const option of options) {
       await pool.query(

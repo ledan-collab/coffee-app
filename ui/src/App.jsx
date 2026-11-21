@@ -319,7 +319,16 @@ function App() {
                   onClick={() => addToCart(menu)}
                   disabled={menu.stock === 0}
                 >
-                  <span className="photo">{menu.stock === 0 ? '품절' : '사진'}</span>
+                  <span className="photo">
+                    {menu.imageUrl ? (
+                      <img src={menu.imageUrl} alt="" data-menu={menu.name} />
+                    ) : menu.stock === 0 ? (
+                      '품절'
+                    ) : (
+                      '사진'
+                    )}
+                    {menu.imageUrl && menu.stock === 0 ? <span className="photo-sold-out">품절</span> : null}
+                  </span>
                   <span className="menu-name">{menu.name}</span>
                   <span className="menu-price">{formatPrice(menu.price)}</span>
                   <span className="menu-description">{menu.description}</span>
